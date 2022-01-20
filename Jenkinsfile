@@ -8,8 +8,20 @@ pipeline {
     }
 
     stage('Prueba') {
-      steps {
-        sh 'mvn sonar:sonar -Dsonar.host.url=http://<IP address>:8081 -Dlicense.skip=true'
+      parallel {
+        stage('Prueba de SonarQube') {
+          steps {
+            sh 'mvn sonar:sonar -Dsonar.host.url=http://<IP address>:8081 -Dlicense.skip=true'
+          }
+        }
+
+        stage('Imprimir credenciales de probador') {
+          steps {
+            echo 'The tester is ${TESTER}'
+            sleep 10
+          }
+        }
+
       }
     }
 
