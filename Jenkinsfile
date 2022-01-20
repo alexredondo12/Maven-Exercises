@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('Prueba') {
+      steps {
+        sh 'mvn sonar:sonar -Dsonar.host.url=http://<IP address>:8081 -Dlicense.skip=true'
+      }
+    }
+
   }
 }
